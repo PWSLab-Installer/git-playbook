@@ -1,0 +1,25 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    
+
+  tasks:
+
+    -   name: Check the version release
+        command: hostnamectl
+        register: os_check
+        ignore_errors: yes
+    
+    -   name: Install Role Git
+        local_action: command ansible-galaxy install -f geerlingguy.git 
+
+    -   name: Applying role Git
+        command: mv ~/.ansible/roles/geerlingguy.git ~/.ansible/roles/pwslab.git
+        ignore_errors: yes
+    
+    -   name: Installing Git
+        include_role:
+            name: pwslab.git
+
+    
